@@ -1,0 +1,82 @@
+local npcType = 16
+local delay = 300
+
+
+patchMemoryByName("Mod Fly")
+function interactWithNpc(npc)
+    local pkt = {}
+    pkt.type = 34
+    pkt.padding2 = npc.id
+    pkt.padding3 = 8
+    pkt.x = npc.current.x
+    pkt.y = npc.current.y
+    pkt.speedx = getLocal().pos.x
+    pkt.speedy = getLocal().pos.y
+    sendPacketRaw(false, pkt)
+end
+
+function trackNpc()
+    local npcs = getNpc()
+    local player = getLocal()
+    local world = getWorld()
+    
+    if not player or not world then return end
+    
+    local playerTileX = math.floor(player.pos.x / 32)
+    local playerTileY = math.floor(player.pos.y / 32)
+    
+    for _, npc in pairs(npcs) do
+        if npc.type == npcType then
+            local npcTileX = math.floor(npc.current.x / 32)
+            local npcTileY = math.floor(npc.current.y / 32)
+            
+            -- Cek apakah posisi NPC dalam batas dunia
+            if npcTileX >= 0 and npcTileX < world.width and 
+               npcTileY >= 0 and npcTileY < world.height then
+                
+                if playerTileX ~= npcTileX or playerTileY ~= npcTileY then
+                    findPath(npcTileX, npcTileY)
+                    sleep(50)
+                    interactWithNpc(npc)
+                    sleep(50)
+                    interactWithNpc(npc)
+                    sleep(50)
+                else
+                    -- Jika sudah di posisi yang sama, interaksi dengan NPC
+                    interactWithNpc(npc)
+                end
+            end
+            break
+        end
+    end
+end
+
+function OnVariantHook(vlist, netID)
+    if vlist and vlist[0] == "OnDialogRequest" and vlist[1] and string.find(vlist[1], "You died to Sgt. Stuffins'") then
+       sendPacket(2, "action|dialog_return\ndialog_name|handle_thanksgiving_boss_popup\nbuttonClicked|respawn") 
+    end
+    return false
+end
+
+-- Register the hook
+AddHook("onvarlist", "TextOverlayHandler", OnVariantHook)
+
+function autoTrack()
+    while true do
+        trackNpc()
+        sleep(delay)
+    end
+end
+
+runThread(autoTrack, "npc_tracker")
+
+
+
+
+
+
+
+
+
+
+
