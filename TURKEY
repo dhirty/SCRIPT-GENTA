@@ -1,4 +1,4 @@
-local npcType = 16
+local npcType = 14
 local delay = 300
 
 patchMemoryByName("Mod Fly")
@@ -57,6 +57,8 @@ function OnVariantHook(vlist, netID)
     return false
 end
 
+sendVariant({[0] = "OnSetFreezeState", [1] = 2}, getLocal().netId, 0)
+
 -- Register the hook
 AddHook("onvarlist", "TextOverlayHandler", OnVariantHook)
 
@@ -68,3 +70,5 @@ function autoTrack()
 end
 
 runThread(autoTrack, "npc_tracker")
+
+
