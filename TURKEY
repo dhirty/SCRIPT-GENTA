@@ -68,10 +68,6 @@ function autoTrack()
     end
 end
 
-requestTileChange(math.floor(getLocal().pos.x / 32), math.floor(getLocal().pos.y / 32), 1368)
-sleep(300)
-toggleCheat(14, true)
-sleep(300)
 runThread(autoTrack, "npc_tracker")
 
 
