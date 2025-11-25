@@ -37,10 +37,10 @@ function trackNpc()
                 if playerTileX ~= npcTileX or playerTileY ~= npcTileY then
                     findPath(npcTileX, npcTileY)
                     sleep(50)
+                    for i = 1, 5 do
                     interactWithNpc(npc)
                     sleep(50)
-                    interactWithNpc(npc)
-                    sleep(50)
+                    end
                 else
                     -- Jika sudah di posisi yang sama, interaksi dengan NPC
                     interactWithNpc(npc)
@@ -68,6 +68,10 @@ function autoTrack()
     end
 end
 
+requestTileChange(math.floor(getLocal().pos.x / 32), math.floor(getLocal().pos.y / 32), 1368)
+sleep(300)
+toggleCheat(14, true)
+sleep(300)
 runThread(autoTrack, "npc_tracker")
 
 
