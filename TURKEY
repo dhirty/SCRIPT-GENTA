@@ -1,8 +1,8 @@
 local npcType = 16
 local delay = 300
 
-
 patchMemoryByName("Mod Fly")
+
 function interactWithNpc(npc)
     local pkt = {}
     pkt.type = 34
@@ -37,13 +37,12 @@ function trackNpc()
                 if playerTileX ~= npcTileX or playerTileY ~= npcTileY then
                     findPath(npcTileX, npcTileY)
                     sleep(50)
-                    for i = 1, 5 do
+                end
+                
+                -- Interaksi dengan NPC beberapa kali
+                for i = 1, 5 do
                     interactWithNpc(npc)
                     sleep(50)
-                    end
-                else
-                    -- Jika sudah di posisi yang sama, interaksi dengan NPC
-                    interactWithNpc(npc)
                 end
             end
             break
@@ -69,14 +68,3 @@ function autoTrack()
 end
 
 runThread(autoTrack, "npc_tracker")
-
-
-
-
-
-
-
-
-
-
-
