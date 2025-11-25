@@ -1,4 +1,4 @@
-local npcType = 14
+local npcType = 16
 local delay = 300
 
 patchMemoryByName("Mod Fly")
