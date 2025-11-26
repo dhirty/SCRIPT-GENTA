@@ -2,6 +2,7 @@
 -- local delay = 300
 
 patchMemoryByName("Mod Fly")
+toggleCheat(34, true)
 
 function interactWithNpc(npc)
     local pkt = {}
