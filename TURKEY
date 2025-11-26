@@ -62,7 +62,6 @@ AddHook("onvarlist", "TextOverlayHandler", OnVariantHook)
 
 function autoTrack()
     while true do
-        sendVariant({[0] = "OnSetFreezeState", [1] = 2}, getLocal().netId, 0)
         trackNpc()
         sleep(delay)
     end
