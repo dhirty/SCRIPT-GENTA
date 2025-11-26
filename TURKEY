@@ -1,6 +1,7 @@
 -- local npcType = 16
 -- local delay = 300
 
+patchMemoryByName("Anti Punch")
 patchMemoryByName("Mod Fly")
 toggleCheat(34, true)
 
