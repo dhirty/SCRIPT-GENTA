@@ -191,7 +191,7 @@ function DeathRace()
         retryCount = 0
     else
         findPath(33, 13)
-        sleep(200)
+        sleep(100)
     end
 end
 
