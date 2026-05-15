@@ -1,4 +1,4 @@
-local mode = 4
+local mode = 2
 local running = true
 local Delay_World = 3000
 local Ticket_ID = 1898
