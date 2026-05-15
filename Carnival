@@ -3,7 +3,7 @@ local running = true
 local Delay_World = 3000
 local Ticket_ID = 1898
 local Carnival_World = "CARNIVAL"
-local Storage_World = "FBAAI|BASO12"
+local Storage_World = "winterdil|BASO11"
 
 -- Config untuk anti-stuck
 local config = {
