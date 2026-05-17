@@ -262,7 +262,7 @@ function SpikySurvival()
     
     -- Setelah masuk, mulai dari 21,41 menuju target 21,46
     elseif x == 21 and y == 41 then
-        findPath(21, 46)
+        --findPath(21, 46)
         sleep(200)
     
     -- Jika sudah mencapai target 21,46
