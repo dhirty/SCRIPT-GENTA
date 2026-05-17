@@ -268,7 +268,7 @@ function SpikySurvival()
     -- Jika sudah mencapai target 21,46
     --elseif x == 21 and y == 46 then
         --sleep(200)
-        +-retryCount = 0
+        --retryCount = 0
     
     else
         -- Default: menuju pintu masuk Spiky Survival
