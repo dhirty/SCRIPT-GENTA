@@ -1,0 +1,76 @@
+-- https://user404.site/discord --
+
+local fruit = {
+    {
+        name = "Pineapple",
+        amount = 48
+    },
+    {
+        name = "Papaya",
+        amount = 1
+    },
+    {
+        name = "Watermelon",
+        amount = 1
+    }
+}
+
+local fruitId = {
+    ["Pineapple"] = 2734,
+    ["Watermelon"] = 13538,
+    ["kiwi"] = 13540,
+    ["Papaya"] = 13542,
+    ["Dragon"] = 13544
+}
+
+function getID(name)
+    name = name:lower()
+    for fruit, id in pairs(fruitId) do
+        if fruit:lower() == name then
+            return id
+        end
+    end
+    return 0
+end
+
+
+AddHook("OnVarlist", "mixer", function(var)
+    if var[0] == "OnDialogRequest" and var[1]:find("end_dialog|fruit_mixer_dialog") then
+        if var[1]:find("add_button|blend_btn|Blend Fruits") then
+            sendPacket(2, "action|dialog_return\ndialog_name|fruit_mixer_dialog\nbuttonClicked|blend_btn")
+            sendPacket(2, "action|show_fruit_mixer_dialog")
+        else
+            local selectedSlot = nil
+            
+            for slot in var[1]:gmatch("add_button_with_icon|(spp_slot_btn_%d+)||staticGreyFrame|0||") do
+                selectedSlot = slot
+                break 
+            end
+            
+            if selectedSlot then
+                sendPacket(2, "action|dialog_return\ndialog_name|fruit_mixer_dialog\nbuttonClicked|" .. selectedSlot)
+            end
+        end
+        return true
+    end
+
+    if var[0] == "OnDialogRequest" and var[1]:find("end_dialog|fruit_mixer_choose_dialog") then
+        local selectedSlot = tonumber(var[1]:match("Slot (%d+)")) - 1
+        amount = fruit[selectedSlot + 1].amount
+        if selectedSlot then
+            sendPacket(2, "action|dialog_return\ndialog_name|fruit_mixer_choose_dialog\nslot|" .. selectedSlot .. "\nbuttonClicked|spp_fruit_btn_"..getID(fruit[selectedSlot + 1].name))
+        end
+        return true
+    end
+
+    if var[0] == "OnDialogRequest" and var[1]:find("end_dialog|tropical_fruits_count_dialog") then
+        local selectedFruit = tonumber(var[1]:match("embed_data|slot|(%d+)"))
+        if selectedFruit then
+            local itemId, itemAmount = getID(fruit[selectedFruit + 1].name), fruit[selectedFruit + 1].amount
+            sendPacket(2, "action|dialog_return\ndialog_name|tropical_fruits_count_dialog\nitemID|"..itemId.."\nslot|"..selectedFruit.."\nbuttonClicked|add_fruit\n\ncount|"..itemAmount)
+        end
+        return true
+    end
+
+    return false
+end)
