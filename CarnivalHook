@@ -1,8 +1,8 @@
 --[[
-local mode = 4 -- 1 = Maze, 2 = Death Race, 3 = Growganoth Right, 4 = Growganoth Left
-local running = true
-local Delay_World = 3000
-local Storage_World = "FBAAI|BASO12"
+mode = 4 -- 1 = Maze, 2 = Death Race, 3 = Growganoth Right, 4 = Growganoth Left
+running = true
+Delay_World = 3000
+Storage_World = "FBAAI|BASO12"
 ]]
 local Carnival_World = "CARNIVAL"
 local Ticket_ID = 1898
